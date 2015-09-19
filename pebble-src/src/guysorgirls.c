@@ -40,7 +40,7 @@ static uint16_t menu_get_num_rows_callback(MenuLayer *menu_layer, uint16_t secti
 static char* get_header_text(uint16_t section_index) {
   switch (section_index) {
     case 0:
-      return "Preferred sex?";
+      return "Preferred partner?";
     default:
       return "";
   }
@@ -49,16 +49,7 @@ static char* get_header_text(uint16_t section_index) {
 static char* get_row_text(uint16_t section, uint16_t row) {
   switch (section) {
     case 0:
-      switch (row) {
-        case 0:
-          return "Guys";
-        case 1:
-          return "Girls";
-        case 2:
-          return "Any";
-        default:
-          return "";
-      }
+      return get_hottie_text_capitalized(row);
     default:
       return "";
   }
@@ -84,7 +75,8 @@ static void menu_draw_row_callback(GContext *ctx, const Layer *cell_layer, MenuI
 
 static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
   g_guys_girls_both = cell_index->row;
-  show_pop_the_question();
+  if (!g_question_shown)
+    show_pop_the_question();
   hide_guys_or_girls();
 }
 

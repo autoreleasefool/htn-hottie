@@ -9,6 +9,9 @@
 static Window *s_main_window;
 static MenuLayer *s_main_menu;
 
+// Primitives
+bool g_main_menu_shown = false;
+
 // Initialises UI elements
 static void initialise_ui(void) {
   s_main_window = window_create();
@@ -115,6 +118,7 @@ static void main_window_unload(Window *window) {
 // Displays this app screen
 void show_main_menu(void) {
   initialise_ui();
+  g_main_menu_shown = true;
   window_set_window_handlers(s_main_window, (WindowHandlers) {
     .unload = main_window_unload,
     .load = main_window_load,
@@ -124,5 +128,6 @@ void show_main_menu(void) {
 
 // Disposes of this app screen
 void hide_main_menu(void) {
+  g_main_menu_shown = false;
   window_stack_remove(s_main_window, true);
 }

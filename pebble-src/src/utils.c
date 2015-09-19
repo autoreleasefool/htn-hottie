@@ -20,14 +20,27 @@ void load_default_pref_values(void) {
   g_guys_girls_both = PREF_BOTH;
 }
 
-char* get_hottie_text(void) {
-  switch (g_guys_girls_both) {
+char* get_hottie_text(int hottie_pref) {
+  switch (hottie_pref) {
     case PREF_GUYS:
       return "guys";
     case PREF_GIRLS:
       return "girls";
     case PREF_BOTH:
       return "guys or girls";
+    default:
+      return "";
+  }
+}
+
+char* get_hottie_text_capitalized(int hottie_pref) {
+  switch (hottie_pref) {
+    case PREF_GUYS:
+      return "Guys";
+    case PREF_GIRLS:
+      return "Girls";
+    case PREF_BOTH:
+      return "Any";
     default:
       return "";
   }

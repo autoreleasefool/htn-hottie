@@ -1,4 +1,5 @@
 #include <pebble.h>
+#include "pop_the_question.h"
 #include "main_menu.h"
 #include "utils.h"
 
@@ -20,6 +21,9 @@ static ActionBarLayer *s_action_bar_hotties;
 // Text output
 static char see_hottie_text[300] = "";
 
+// Primitives
+bool g_question_shown = false;
+
 // Forward declarations
 static void click_config_provider(void *context);
 
@@ -33,8 +37,8 @@ static void initialise_ui(void) {
   s_res_gothic_24 = fonts_get_system_font(FONT_KEY_GOTHIC_24);
 
   // Initialising labels
-  snprintf(see_hottie_text, sizeof(see_hottie_text), "Do you see any hot %s%s", get_hottie_text(), "?");
-  s_textlayer_label_see_hotties = text_layer_create(GRect(0, 0, 144 - ACTION_BAR_WIDTH, 168));
+  snprintf(see_hottie_text, sizeof(see_hottie_text), "Do you see any hot %s%s", get_hottie_text(g_guys_girls_both), "?");
+  s_textlayer_label_see_hotties = text_layer_create(GRect(5, 5, 134 - ACTION_BAR_WIDTH, 158));
   text_layer_set_text(s_textlayer_label_see_hotties, see_hottie_text);
   text_layer_set_text_alignment(s_textlayer_label_see_hotties, GTextAlignmentLeft);
   text_layer_set_font(s_textlayer_label_see_hotties, s_res_gothic_24);
@@ -71,11 +75,15 @@ static void main_window_unload(Window *window) {
 }
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
-  show_main_menu();
+  if (!g_main_menu_shown)
+    show_main_menu();
+  hide_pop_the_question();
 }
 
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
-  show_main_menu();
+  if (!g_main_menu_shown)
+    show_main_menu();
+  hide_pop_the_question();
 }
 
 static void click_config_provider(void *context) {
@@ -86,6 +94,7 @@ static void click_config_provider(void *context) {
 
 void show_pop_the_question(void) {
   initialise_ui();
+  g_question_shown = true;
   window_set_window_handlers(s_main_window, (WindowHandlers) {
     .unload = main_window_unload,
   });
@@ -93,5 +102,6 @@ void show_pop_the_question(void) {
 }
 
 void hide_pop_the_question(void) {
+  g_question_shown = false;
   window_stack_remove(s_main_window, true);
 }

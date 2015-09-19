@@ -8,4 +8,5 @@ extern int g_guys_girls_both;
 void load_prefs(void);
 void save_prefs(void);
 void load_default_pref_values(void);
-char* get_hottie_text(void);
+char* get_hottie_text(int hottie_pref);
+char* get_hottie_text_capitalized(int hottie_pref);
