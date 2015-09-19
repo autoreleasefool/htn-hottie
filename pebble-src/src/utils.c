@@ -17,5 +17,18 @@ void save_prefs(void) {
 }
 
 void load_default_pref_values(void) {
-  g_guys_girls_both = 2;
+  g_guys_girls_both = PREF_BOTH;
+}
+
+char* get_hottie_text(void) {
+  switch (g_guys_girls_both) {
+    case PREF_GUYS:
+      return "guys";
+    case PREF_GIRLS:
+      return "girls";
+    case PREF_BOTH:
+      return "guys or girls";
+    default:
+      return "";
+  }
 }

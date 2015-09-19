@@ -13,6 +13,17 @@
     "dummy": 0
   },
   "resources": {
-    "media": []
+    "media": [
+      {
+        "type": "png",
+        "name": "IMAGE_CHECK",
+        "file": "check.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_X",
+        "file": "x.png"
+      }
+    ]
   }
 }

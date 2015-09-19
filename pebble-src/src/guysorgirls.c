@@ -1,5 +1,6 @@
 #include <pebble.h>
 #include "guysorgirls.h"
+#include "pop_the_question.h"
 #include "utils.h"
 
 #define NUM_MENU_SECTIONS 1
@@ -83,9 +84,7 @@ static void menu_draw_row_callback(GContext *ctx, const Layer *cell_layer, MenuI
 
 static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
   g_guys_girls_both = cell_index->row;
-  // if (!g_settings_is_on_stack) {
-  //   show_calc_menu();
-  // }
+  show_pop_the_question();
   hide_guys_or_girls();
 }
 

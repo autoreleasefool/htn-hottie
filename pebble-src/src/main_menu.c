@@ -80,11 +80,14 @@ static void menu_draw_row_callback(GContext *ctx, const Layer *cell_layer, MenuI
 }
 
 static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
-  g_guys_girls_both = cell_index->row;
-  // if (!g_settings_is_on_stack) {
-  //   show_calc_menu();
-  // }
-  hide_guys_or_girls();
+  switch (cell_index->row) {
+    case 0:
+      // TODO: show closest hot spot
+      break;
+    case 1:
+      show_guys_or_girls();
+      break;
+  }
 }
 
 static void main_window_load(Window *window) {
