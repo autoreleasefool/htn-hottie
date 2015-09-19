@@ -1,9 +1,16 @@
 package vk.hackthenorth2015;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,32 +20,39 @@ public class MainActivity extends ActionBarActivity {
     private EditText mText;
     private TextView textView;
     private boolean male, female;
+    public static final int nID = 1342;
+    NotificationCompat.Builder notif;
+    private Button button2, yesButton, noButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = (TextView)findViewById(R.id.textView2);
-        mText = (EditText)findViewById(R.id.editText1);
+        textView = (TextView) findViewById(R.id.textView2);
+        mText = (EditText) findViewById(R.id.editText1);
+        notif = new NotificationCompat.Builder(this);
+        button2 = (Button) findViewById(R.id.button2);
+        yesButton = (Button)findViewById(R.id.yesButton);
+        noButton = (Button)findViewById(R.id.noButton);
 
         //gets info from startscreen
         Bundle bundle = getIntent().getExtras();
         int pref = bundle.getInt("pref");
 
-        if(pref == 0){
+        if (pref == 0) {
             male = true;
             female = false;
             Male();
         }
 
-        if(pref == 1){
+        if (pref == 1) {
             female = true;
             male = false;
             Female();
         }
 
-        if(pref == 2){
+        if (pref == 2) {
             male = true;
             female = true;
             Both();
@@ -47,26 +61,77 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    void Male(){
+    void Male() {
 
         textView.setText("You are interested in males.");
 
 
+        //long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        //AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        //alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+
+
+    }
+
+    public void bam(View view) {
+
+        Intent intent1 = new Intent(this,StartScreen.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //Intent yes = new Intent(this, yes.class);
+        //Intent no = new Intent(this, no.class);
+        //PendingIntent pYes = PendingIntent.getActivity(this, 0, yes, 0);
+        //PendingIntent pNo = pendingIntent.getActivity(this, 0, no, 0);
+
+
+        Notification notif = new Notification.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pendingIntent)
+                .setTicker("HOTTY ALERT!")
+                .setWhen(System.currentTimeMillis())
+                .setContentTitle("Spot the Hottie")
+                .setContentText("Are there any attractive people around?")
+                .setPriority(1)
+                .setAutoCancel(true)
+                //.addAction(R.drawable.tup, "Yes", pNo)
+                //.addAction(R.drawable.tdown, "No", pYes)
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0, notif);
     }
 
 
 
-    void Female(){
+
+    void Female() {
 
         textView.setText("You are interested in females.");
 
     }
 
-    void Both(){
+    void Both() {
 
         textView.setText("You are interested in both genders.");
 
     }
+
+
+    public void yes(View view){
+
+
+
+    }
+
+    public void no(View view){
+
+    }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
