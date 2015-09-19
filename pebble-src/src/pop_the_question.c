@@ -23,9 +23,11 @@ static char see_hottie_text[300] = "";
 
 // Primitives
 bool g_question_shown = false;
+static WakeupId s_wakeup_id;
 
 // Forward declarations
 static void click_config_provider(void *context);
+static void wakeup_handler(WakeupId id, int32_t reason);
 
 static void initialise_ui(void) {
   s_main_window = window_create();
@@ -74,14 +76,35 @@ static void main_window_unload(Window *window) {
   destroy_ui();
 }
 
+static void schedule_future_question(void) {
+  wakeup_cancel_all();
+
+  // Timestamp for tomorrow at 12:30 pm
+  time_t timestamp = clock_to_timestamp(TODAY, 12, 30);
+  timestamp += 60 * 60 * 24;
+
+  s_wakeup_id = wakeup_schedule(timestamp, WAKEUP_REASON, true);
+  while (s_wakeup_id == -8) {
+    timestamp += 60;
+    s_wakeup_id = wakeup_schedule(timestamp, WAKEUP_REASON, true);
+  }
+  persist_write_int(WAKEUP_ID_KEY, s_wakeup_id);
+}
+
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
-  if (!g_main_menu_shown)
+  // TODO: send yes, location, time to backend
+  schedule_future_question();
+
+  if (!g_main_menu_shown && !g_from_wakeup)
     show_main_menu();
   hide_pop_the_question();
 }
 
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
-  if (!g_main_menu_shown)
+  // TODO: send no, location, time to backend
+  schedule_future_question();
+
+  if (!g_main_menu_shown && !g_from_wakeup)
     show_main_menu();
   hide_pop_the_question();
 }

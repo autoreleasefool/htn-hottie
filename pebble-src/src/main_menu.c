@@ -65,7 +65,7 @@ static char* get_row_text(uint16_t section, uint16_t row) {
 }
 
 static char* get_row_subtitle(uint16_t section, uint16_t row) {
-  return "";
+  return NULL;
 }
 
 static int16_t menu_get_header_height_callback(MenuLayer *menu_layer, uint16_t section, void *data) {

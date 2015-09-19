@@ -3,7 +3,9 @@
 
 #define GUY_GIRL_BOTH_KEY 0
 
+// Primitives
 int g_guys_girls_both = -1;
+bool g_from_wakeup = false;
 
 void load_prefs(void) {
   // Retrieving user preferences from previous sessions
