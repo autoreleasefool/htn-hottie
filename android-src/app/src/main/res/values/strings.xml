@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">HackTheNorth2015</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_start_screen">StartScreen</string>
+
+    <string-array name="sex_preferences">
+            <item>Male</item>
+            <item>Female</item>
+            <item>Both</item>
+    </string-array>
+
+</resources>
