@@ -1,8 +1,8 @@
 {
   "uuid": "8f2fe677-391a-42fd-ace7-5ee86e103338",
-  "shortName": "pebble-src",
-  "longName": "pebble-src",
-  "companyName": "MakeAwesomeHappen",
+  "shortName": "Hot and Spicy",
+  "longName": "Hot and Spicy",
+  "companyName": "TeamOpHackers",
   "versionLabel": "1.0",
   "sdkVersion": "3",
   "targetPlatforms": ["aplite", "basalt"],
