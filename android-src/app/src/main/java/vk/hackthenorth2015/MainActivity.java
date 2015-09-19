@@ -76,12 +76,11 @@ public class MainActivity extends ActionBarActivity {
     public void bam(View view) {
 
         Intent intent1 = new Intent(this,StartScreen.class);
+        intent1.setAction("yes");
+        Intent intent2 = new Intent(this,StartScreen.class);
+        intent2.setAction("no");
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        //Intent yes = new Intent(this, yes.class);
-        //Intent no = new Intent(this, no.class);
-        //PendingIntent pYes = PendingIntent.getActivity(this, 0, yes, 0);
-        //PendingIntent pNo = pendingIntent.getActivity(this, 0, no, 0);
+        PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
         Notification notif = new Notification.Builder(this)
@@ -91,10 +90,10 @@ public class MainActivity extends ActionBarActivity {
                 .setWhen(System.currentTimeMillis())
                 .setContentTitle("Spot the Hottie")
                 .setContentText("Are there any attractive people around?")
-                .setPriority(1)
+                .setPriority(Notification.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
-                //.addAction(R.drawable.tup, "Yes", pNo)
-                //.addAction(R.drawable.tdown, "No", pYes)
+                .addAction(R.drawable.tup, "Yes", pendingIntent)
+                .addAction(R.drawable.tdown, "No", pendingIntent2)
                 .build();
 
         NotificationManager notificationManager = (NotificationManager)

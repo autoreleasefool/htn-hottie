@@ -25,6 +25,12 @@ public class StartScreen extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_screen);
 
+        if ("yes".equals(getIntent().getAction())) {
+            Log.i("Yes", "Yes");
+        } else if ("no".equals(getIntent().getAction())) {
+            Log.i("No", "No");
+        }
+
 
         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
 
