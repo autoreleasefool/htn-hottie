@@ -1,21 +1,28 @@
 package vk.hackthenorth2015;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements LocationListener {
 
     private EditText mText;
     private TextView textView;
@@ -30,7 +37,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         textView = (TextView) findViewById(R.id.textView2);
-        mText = (EditText) findViewById(R.id.editText1);
+        //mText = (EditText) findViewById(R.id.editText1);
         notif = new NotificationCompat.Builder(this);
         button2 = (Button) findViewById(R.id.button2);
         yesButton = (Button)findViewById(R.id.yesButton);
@@ -100,6 +107,10 @@ public class MainActivity extends ActionBarActivity {
                 getSystemService(NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, notif);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 15000, pendingIntent);
+
     }
 
 
@@ -120,8 +131,6 @@ public class MainActivity extends ActionBarActivity {
 
     public void yes(View view){
 
-
-
     }
 
     public void no(View view){
@@ -129,7 +138,36 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
+    @Override
+    public void onLocationChanged(Location loc) {
 
+        LocationListener locationListener = new LocationListener();
+        LocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+
+        Toast.makeText(
+                getBaseContext(),
+                "Location changed: Lat: " + loc.getLatitude() + " Lng: "
+                        + loc.getLongitude(), Toast.LENGTH_SHORT).show();
+        String longitude = "Longitude: " + loc.getLongitude();
+        String latitude = "Latitude: " + loc.getLatitude();
+    }
+
+
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 
 
     @Override

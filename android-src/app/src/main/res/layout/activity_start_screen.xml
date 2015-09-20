@@ -29,6 +29,27 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:background="#8F408F" />
+        android:background="#8F408F"
+        android:textColor="#FFFFFFFF" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Choose which gender you&apos;re interested in: "
+        android:id="@+id/textView"
+        android:layout_alignTop="@+id/spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/spinner"
+        android:layout_toStartOf="@+id/button"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button"
+        android:linksClickable="false"
+        android:longClickable="false"
+        android:nestedScrollingEnabled="false"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFFFF" />
 
 </RelativeLayout>
