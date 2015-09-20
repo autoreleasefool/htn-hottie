@@ -23,11 +23,9 @@ static char see_hottie_text[300] = "";
 
 // Primitives
 bool g_question_shown = false;
-static WakeupId s_wakeup_id;
 
 // Forward declarations
 static void click_config_provider(void *context);
-static void wakeup_handler(WakeupId id, int32_t reason);
 
 static void initialise_ui(void) {
   s_main_window = window_create();
@@ -83,16 +81,17 @@ static void schedule_future_question(void) {
   time_t timestamp = clock_to_timestamp(TODAY, 12, 30);
   timestamp += 60 * 60 * 24;
 
-  s_wakeup_id = wakeup_schedule(timestamp, WAKEUP_REASON, true);
-  while (s_wakeup_id == -8) {
+  WakeupId wakeup_id;
+  wakeup_id = wakeup_schedule(timestamp, WAKEUP_REASON, true);
+  while (wakeup_id == -8) {
     timestamp += 60;
-    s_wakeup_id = wakeup_schedule(timestamp, WAKEUP_REASON, true);
+    wakeup_id = wakeup_schedule(timestamp, WAKEUP_REASON, true);
   }
-  persist_write_int(WAKEUP_ID_KEY, s_wakeup_id);
+  persist_write_int(WAKEUP_ID_KEY, wakeup_id);
 }
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
-  // TODO: send yes, location, time to backend
+  post_hotties();
   schedule_future_question();
 
   if (!g_main_menu_shown && !g_from_wakeup)
@@ -101,7 +100,7 @@ static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
-  // TODO: send no, location, time to backend
+  post_notties();
   schedule_future_question();
 
   if (!g_main_menu_shown && !g_from_wakeup)

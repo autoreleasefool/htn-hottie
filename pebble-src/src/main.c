@@ -13,6 +13,7 @@ static void wakeup_handler(WakeupId id, int32_t reason) {
 }
 
 static void init(void) {
+  register_app_message_callbacks();
   load_prefs();
   wakeup_service_subscribe(wakeup_handler);
 

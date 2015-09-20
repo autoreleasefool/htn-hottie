@@ -10,7 +10,8 @@
     "watchface": false
   },
   "appKeys": {
-    "dummy": 0
+    "KEY_POST_ANSWER": 0,
+    "KEY_GUY_GIRL_BOTH": 1
   },
   "resources": {
     "media": [
