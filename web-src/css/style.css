@@ -961,6 +961,7 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
+		height:100vh;
 		color: #ffffff;
 		padding: 16em 0em 14em;
 		text-align: center;
