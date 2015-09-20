@@ -5,7 +5,6 @@
 
 // Main UI
 static Window *s_main_window;
-static GFont s_res_gothic_24_bold;
 static GFont s_res_gothic_24;
 
 // Labels

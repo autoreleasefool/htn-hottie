@@ -2,10 +2,15 @@
 #include "utils.h"
 
 #define GUY_GIRL_BOTH_KEY 0
+#define LATITUDE 2
+#define LONGITUDE 3
 
 // Primitives
 int g_guys_girls_both = -1;
 bool g_from_wakeup = false;
+
+char* g_most_recent_latitude;
+char* g_most_recent_longitude;
 
 void load_prefs(void) {
   // Retrieving user preferences from previous sessions
@@ -66,6 +71,26 @@ void post_notties(void) {
 
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Message received!");
+  // Get the first pair
+  Tuple *t = dict_read_first(iterator);
+
+  // Process all pairs present
+  while(t != NULL) {
+    // Process this pair's key
+    switch (t->key) {
+      case LATITUDE:
+        APP_LOG(APP_LOG_LEVEL_INFO, "LATITUDE received");
+        g_most_recent_latitude = t->value->cstring;
+        break;
+      case LONGITUDE:
+        APP_LOG(APP_LOG_LEVEL_INFO, "LONGITUDE received");
+        g_most_recent_longitude= t->value->cstring;
+        break;
+    }
+
+    // Get next pair, if any
+    t = dict_read_next(iterator);
+  }
 }
 
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {
@@ -89,5 +114,4 @@ void register_app_message_callbacks(void) {
 
   // Open AppMessage
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
-
 }

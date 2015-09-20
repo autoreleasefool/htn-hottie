@@ -16,6 +16,9 @@
 extern int g_guys_girls_both;
 extern bool g_from_wakeup;
 
+extern char* g_most_recent_latitude;
+extern char* g_most_recent_longitude;
+
 void load_prefs(void);
 void save_prefs(void);
 void load_default_pref_values(void);

@@ -11,7 +11,9 @@
   },
   "appKeys": {
     "KEY_POST_ANSWER": 0,
-    "KEY_GUY_GIRL_BOTH": 1
+    "KEY_GUY_GIRL_BOTH": 1,
+    "latitude": 2,
+    "longitude": 3
   },
   "resources": {
     "media": [

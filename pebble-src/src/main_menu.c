@@ -1,4 +1,5 @@
 #include <pebble.h>
+#include "nearby.h"
 #include "guysorgirls.h"
 #include "utils.h"
 
@@ -85,7 +86,7 @@ static void menu_draw_row_callback(GContext *ctx, const Layer *cell_layer, MenuI
 static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
   switch (cell_index->row) {
     case 0:
-      // TODO: show closest hot spot
+      show_nearby();
       break;
     case 1:
       show_guys_or_girls();

@@ -57,10 +57,24 @@ function locationError(err) {
   console.warn('location error (' + err.code + '): ' + err.message);
 }
 
+function requestNearbyHotties() {
+  ajax('https://amber-inferno-1657.firebaseio.com/nearby.json', 'GET', null, function(data) {
+    console.log('The ajax request succeeded: ' + data);
+    Pebble.sendAppMessage({"latitude": String(data.latitude), "longitude": String(data.longitude)});
+  });
+}
+
 Pebble.addEventListener('appmessage', function (e) {
-  mostRecentMessageType = e.payload.KEY_GUY_GIRL_BOTH;
-  mostRecentMessageYesNo = e.payload.KEY_POST_ANSWER;
-  window.navigator.geolocation.getCurrentPosition(locationSuccess, locationError,
-    locationOptions);
+  console.log('message1!');
+  if (e.payload.KEY_POST_ANSWER) {
+    console.log('message2!');
+    mostRecentMessageType = e.payload.KEY_GUY_GIRL_BOTH;
+    mostRecentMessageYesNo = e.payload.KEY_POST_ANSWER;
+    window.navigator.geolocation.getCurrentPosition(locationSuccess, locationError,
+      locationOptions);
+  } else {
+    console.log('message3!');
+    requestNearbyHotties();
+  }
   console.log('message!');
 });
