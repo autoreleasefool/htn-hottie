@@ -61,11 +61,6 @@ function initialize() {
 			myOptions);
 
   for (var spot in hotspots) {
-		var marker = new google.maps.Marker({
-		  map: map,
-		  position: hotspots[spot].center,
-		  title: 'Hot spot!'
-		});
     var spotCircle = new google.maps.Circle({
       strokeColor: '#FF0000',
       strokeOpacity: 0.8,
@@ -73,17 +68,12 @@ function initialize() {
       fillColor: '#FF0000',
       fillOpacity: 0.35,
       map: map,
-      radius: hotspots[spot].radius
+      radius: hotspots[spot].radius,
+			center: hotspots[spot].center,
     });
-		spotCircle.bindTo('center', marker, 'position');
   }
 
 	for (var spot in coldspots) {
-		var marker = new google.maps.Marker({
-		  map: map,
-		  position: coldspots[spot].center,
-		  title: 'NOT spot!'
-		});
     var spotCircle = new google.maps.Circle({
       strokeColor: '#0000FF',
       strokeOpacity: 0.8,
@@ -91,8 +81,8 @@ function initialize() {
       fillColor: '#0000FF',
       fillOpacity: 0.35,
       map: map,
-      radius: coldspots[spot].radius
+      radius: coldspots[spot].radius,
+			center: coldspots[spot].center,
     });
-		spotCircle.bindTo('center', marker, 'position');
   }
 }
